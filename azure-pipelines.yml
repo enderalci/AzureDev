@@ -10,8 +10,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'EA-IaC'
+    subscriptionId: '56ae7a52-4c16-43d5-8da9-f0dd36535d95'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'EA-IaC'
+    location: 'North Europe'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://github.com/enderalci/azureDev/blob/main/createstandardvm.json'
+    deploymentMode: 'Incremental'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
